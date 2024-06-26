@@ -11,8 +11,14 @@ import java.util.Map;
 public class RestClient {
 
     private static RequestSpecBuilder specBuilder;
-    private static String  BASE_URI="https://gorest.com";
-    private static String  BEARER_TOKEN="https://gorest.com";
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    private static String  BASE_URI="https://gorest.co.in";
+    private static String  BEARER_TOKEN="7267c9d99618120d69624f04ab4e1c8263e4cfbd21ad56ef026d26fcb12aa74f";
 
     public RestClient(){
          specBuilder = new RequestSpecBuilder();
@@ -122,6 +128,31 @@ public class RestClient {
         }
 
         return RestAssured.given().spec(createrequestSpecification(obj,contentType,headers)).when().post(serviceUrl);
+    }
+
+    public Response put(String serviceUrl, String contentType, Object obj, Map<String, String> headers, boolean log){
+        if(log){
+            return  RestAssured.given().spec(createrequestSpecification(obj,contentType,headers)).log().all().when().put(serviceUrl);
+        }
+
+        return RestAssured.given().spec(createrequestSpecification(obj,contentType,headers)).when().put(serviceUrl);
+    }
+
+    public Response patch(String serviceUrl, String contentType, Object obj, Map<String, String> headers, boolean log){
+        if(log){
+            return  RestAssured.given().spec(createrequestSpecification(obj,contentType,headers)).log().all().when().patch(serviceUrl);
+        }
+
+        return RestAssured.given().spec(createrequestSpecification(obj,contentType,headers)).when().patch(serviceUrl);
+    }
+
+
+    public Response delete(String serviceUrl,boolean log){
+        if(log){
+            return  RestAssured.given().spec(createrequestSpecification()).log().all().when().delete(serviceUrl);
+        }
+
+        return RestAssured.given().spec(createrequestSpecification()).when().delete(serviceUrl);
     }
 
 }
