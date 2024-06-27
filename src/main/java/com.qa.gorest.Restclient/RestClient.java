@@ -25,7 +25,7 @@ public class RestClient {
     }
 
     public void addAuthHeader(){
-        specBuilder.addHeader("Aurthorization","Bearer"+BEARER_TOKEN);
+        specBuilder.addHeader("Authorization","Bearer "+BEARER_TOKEN);
     }
 
     public void setContenttype(String contenttype){
@@ -71,7 +71,7 @@ public class RestClient {
     }
 
     private RequestSpecification createrequestSpecification(Object requestBody,String contenttype,Map<String,String> header){
-        specBuilder.setBaseUri(BASE_URI).setContentType(ContentType.JSON);
+        specBuilder.setBaseUri(BASE_URI);
         addAuthHeader();
         if(requestBody!=null){
             specBuilder.setBody(requestBody);
