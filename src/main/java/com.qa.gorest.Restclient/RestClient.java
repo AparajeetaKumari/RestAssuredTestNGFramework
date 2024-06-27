@@ -7,6 +7,7 @@ import io.restassured.response.Response;
 import io.restassured.specification.*;
 
 import java.util.Map;
+import java.util.Properties;
 
 public class RestClient {
 
@@ -17,15 +18,25 @@ public class RestClient {
         return super.hashCode();
     }
 
-    private static String  BASE_URI="https://gorest.co.in";
+    //private static String  BASE_URI="https://gorest.co.in";
     private static String  BEARER_TOKEN="7267c9d99618120d69624f04ab4e1c8263e4cfbd21ad56ef026d26fcb12aa74f";
 
-    public RestClient(){
+    private Properties prop;
+    private String baseurl;
+
+    boolean isAuthAdded = false;
+
+    public RestClient(Properties prop, String baseurl){
          specBuilder = new RequestSpecBuilder();
+         this.prop = prop;
+         this.baseurl = baseurl;
     }
 
     public void addAuthHeader(){
-        specBuilder.addHeader("Authorization","Bearer "+BEARER_TOKEN);
+        if(!isAuthAdded) {
+            specBuilder.addHeader("Authorization", "Bearer " + prop.getProperty("BEARER_TOKEN"));
+            isAuthAdded = true;
+        }
     }
 
     public void setContenttype(String contenttype){
@@ -44,13 +55,13 @@ public class RestClient {
     }
 
     private RequestSpecification createrequestSpecification(){
-        specBuilder.setBaseUri(BASE_URI).setContentType(ContentType.JSON);
+        specBuilder.setBaseUri(baseurl).setContentType(ContentType.JSON);
         addAuthHeader();
         return specBuilder.build();
     }
 
     private RequestSpecification createrequestSpecification(Map<String,String> header){
-        specBuilder.setBaseUri(BASE_URI).setContentType(ContentType.JSON);
+        specBuilder.setBaseUri(baseurl).setContentType(ContentType.JSON);
         addAuthHeader();
         if(header!=null){
             specBuilder.addHeaders(header);
@@ -59,7 +70,7 @@ public class RestClient {
     }
 
     private RequestSpecification createrequestSpecification(Map<String,String> header,Map<String,String> queryParam){
-        specBuilder.setBaseUri(BASE_URI).setContentType(ContentType.JSON);
+        specBuilder.setBaseUri(baseurl).setContentType(ContentType.JSON);
         addAuthHeader();
         if(header!=null){
             specBuilder.addHeaders(header);
@@ -71,7 +82,7 @@ public class RestClient {
     }
 
     private RequestSpecification createrequestSpecification(Object requestBody,String contenttype,Map<String,String> header){
-        specBuilder.setBaseUri(BASE_URI);
+        specBuilder.setBaseUri(baseurl);
         addAuthHeader();
         if(requestBody!=null){
             specBuilder.setBody(requestBody);
@@ -87,7 +98,7 @@ public class RestClient {
     }
 
     private RequestSpecification createrequestSpecification(Object requestBody,String contenttype){
-        specBuilder.setBaseUri(BASE_URI).setContentType(ContentType.JSON);
+        specBuilder.setBaseUri(baseurl).setContentType(ContentType.JSON);
         addAuthHeader();
         if(requestBody!=null){
             specBuilder.setBody(requestBody);
