@@ -19,6 +19,18 @@
 
     </test>
 
+    <test name="Amedeus API">
+        <parameter name="baseuri" value="https://gorest.co.in"/>
+        <parameter name="grantType" value="https://gorest.co.in"/>
+        <parameter name="clientId" value="https://gorest.co.in"/>
+        <parameter name="clientSecret" value="https://gorest.co.in"/>
+        <classes>
+
+            <class name="com.qa.gorest.tests.CreateUserTest"/>
+        </classes>
+
+    </test>
+
 
     <!-- Test -->
 

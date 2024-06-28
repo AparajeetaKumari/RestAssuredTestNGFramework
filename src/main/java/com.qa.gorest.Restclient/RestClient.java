@@ -6,6 +6,7 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.*;
 
+
 import java.util.Map;
 import java.util.Properties;
 
@@ -164,6 +165,20 @@ public class RestClient {
         }
 
         return RestAssured.given().spec(createrequestSpecification()).when().delete(serviceUrl);
+    }
+
+    public static String generateToken(String serviceURL, String grantType, String clienId, String clientSeceret){
+        RestAssured.baseURI= "";
+        String accessToken = RestAssured.given().contentType(ContentType.URLENC)
+                .formParam("grant_type",grantType)
+                .formParam("client_id",clienId)
+                .formParam("client_secret",clientSeceret)
+                .when()
+                .post(serviceURL)
+                .then().assertThat().statusCode(200).extract().path("access_token");
+
+        System.out.println(accessToken);
+        return accessToken;
     }
 
 }

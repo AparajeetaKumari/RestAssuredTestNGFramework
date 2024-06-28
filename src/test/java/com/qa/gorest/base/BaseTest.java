@@ -23,6 +23,7 @@ public class BaseTest {
 
         configManager = new ConfigurationManager();
         prop = configManager.readInitConfig();
-        restClient = new RestClient(prop, baseuri);
+        this.baseuri = baseuri;
+        //restClient = new RestClient(prop, baseuri);
     }
 }
