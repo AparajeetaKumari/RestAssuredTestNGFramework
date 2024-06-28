@@ -2,6 +2,7 @@ package com.qa.gorest.tests;
 
 import com.qa.gorest.Restclient.RestClient;
 import com.qa.gorest.base.BaseTest;
+import com.qa.gorest.listener.RetryAnalyzer;
 import com.qa.gorest.pojos.User;
 import com.qa.gorest.utils.StringUtils;
 import io.restassured.mapper.ObjectMapper;
@@ -12,7 +13,7 @@ import org.testng.annotations.Test;
 
 public class CreateUserTest extends BaseTest {
 
-    @Test
+    @Test(retryAnalyzer = RetryAnalyzer.class)
     public void createUserTest(){
         User user = new User("Aparajeeta", StringUtils.randomEmail(), "female","active");
         Response res = restClient.post("/public/v2/users", "json",user,null,true);

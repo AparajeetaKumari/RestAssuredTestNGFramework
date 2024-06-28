@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="API Rest Assured Regression Suite">
+    <test name="Go rest api">
+        <parameter name="baseuri" value="https://gorest.co.in"/>
+        <classes>
+            <class name="com.qa.gorest.tests.GetUserTest"/>
+
+        </classes>
+
+    </test>
+
+    <test name="Go rest create api">
+        <parameter name="baseuri" value="https://gorest.co.in"/>
+        <classes>
+
+            <class name="com.qa.gorest.tests.CreateUserTest"/>
+        </classes>
+
+    </test>
+
+
+    <!-- Test -->
+
+<!--    <test name="Go rest api">-->
+<!--        <parameter name="baseuri" value="https://gorest.co.in"/>-->
+<!--        <classes>-->
+<!--            <class name="com.qa.gorest.tests.GetUserTest"/>-->
+<!--        </classes>-->
+<!--    </test> &lt;!&ndash; Test &ndash;&gt;-->
+</suite> <!-- Suite -->

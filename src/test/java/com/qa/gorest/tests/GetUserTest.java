@@ -2,6 +2,7 @@ package com.qa.gorest.tests;
 
 import com.qa.gorest.Restclient.RestClient;
 import com.qa.gorest.base.BaseTest;
+import com.qa.gorest.listener.RetryAnalyzer;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.testng.Assert;
@@ -12,12 +13,12 @@ import java.util.Map;
 
 public class GetUserTest extends BaseTest {
 
-    @Test
+    @Test(retryAnalyzer = RetryAnalyzer.class)
     public void getAllUsers(){
         restClient.get("/public/v2/users", true).then().assertThat().statusCode(200);
     }
 
-    @Test
+    @Test(retryAnalyzer = RetryAnalyzer.class)
     public void getSpecificUsers(){
         Response res = restClient.get("/public/v2/users/6987116", true);
         JsonPath js = new JsonPath(res.getBody().asString());
@@ -25,7 +26,7 @@ public class GetUserTest extends BaseTest {
         Assert.assertEquals(id,"6987116");
     }
 
-    @Test
+    @Test(retryAnalyzer = RetryAnalyzer.class)
     public void getSpecificUsersUsingQueryParam(){
         Map<String,String> query = new HashMap<>();
         query.put("name","Aparajeeta");
