@@ -14,10 +14,9 @@ public class ConfigurationManager {
         prop = new Properties();
         if(envName==null){
             System.out.println("No valid environment shared, setting default environment as QA");
-            envName = "qa";
         }else{
             try {
-                switch (envName.toLowerCase()) {
+                switch (envName.toLowerCase().trim()) {
                     case "qa":
                         fis = new FileInputStream("./src/test/resources/config/qa.config.properties");
                         break;
